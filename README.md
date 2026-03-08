@@ -4,10 +4,21 @@ Colors folder backgrounds in the Unity Project window based on folder name.
 
 ## Installation
 
-1. Copy or clone this package into your project's `Packages/` directory so the path is `Packages/com.finalnailstudio.coloredfolders/`.
-2. Alternatively, open **Window > Package Manager**, click **+**, choose **Add package from disk**, and select the `package.json` file.
+**Via Git URL (recommended):**
 
-Unity will detect the package automatically on the next domain reload.
+Add this line to your project's `Packages/manifest.json`:
+```json
+"com.finalnailstudio.coloredfolders": "https://github.com/Final-Nail-Studio/colored-folders.git"
+```
+
+Or in Unity: **Window > Package Manager > + > Add package from git URL** and enter:
+```
+https://github.com/Final-Nail-Studio/colored-folders.git
+```
+
+**Manual:**
+
+Copy or clone this package into your project's `Packages/` directory so the path is `Packages/com.finalnailstudio.coloredfolders/`.
 
 ## Usage
 
