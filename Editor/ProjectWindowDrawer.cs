@@ -137,7 +137,7 @@ namespace FinalNailStudio.ColoredFolders
                     // Draw colored text (no icon in content)
                     if (s_TextLabelStyle == null)
                         s_TextLabelStyle = new GUIStyle(EditorStyles.label);
-                    s_TextLabelStyle.normal.textColor = new Color(color.r, color.g, color.b, 1f);
+                    s_TextLabelStyle.normal.textColor = Color.Lerp(color, Color.white, 0.65f);
                     GUI.color = Color.white;
                     GUI.Label(textRect, PathUtility.GetFolderName(path), s_TextLabelStyle);
                 }
