@@ -1,6 +1,6 @@
 # Colored Folders
 
-Colors folder backgrounds in the Unity Project window based on folder name. A lightweight, editor-only alternative to Rainbow Folders focused on background tinting only.
+Colors folder backgrounds in the Unity Project window based on folder name. 
 
 ## Installation
 
@@ -87,9 +87,9 @@ Rules are stored in `ProjectSettings/ColoredFoldersSettings.json`. This file sho
 ## Limitations
 
 - **Assets folder only** — Packages and other root folders are not tinted.
-- **Background tinting only** — No custom icons, labels, or decorations.
-- **Editor only** — No runtime code or overhead.
-- **Folder name rules only** — Cannot target a specific path, only a name shared by all matching folders.
+- **Color tinting only** — No custom icons.
+- **Editor only** — No runtime code or overhead. Not really a limitation :)
+- **Folder name rules only** — Does not target a specific path, only a name shared by all matching folders.
 
 ## Compatibility
 
