@@ -1,0 +1,25 @@
+{
+    "name": "com.finalnailstudio.coloredfolders",
+    "version": "1.0.0",
+    "displayName": "Colored Folders",
+    "description": "Colors folder backgrounds in the Unity Project window based on folder name. Lightweight, editor-only alternative to Rainbow Folders.",
+    "unity": "2021.3",
+    "keywords": [
+        "folders",
+        "project",
+        "colors",
+        "editor",
+        "organization"
+    ],
+    "author": {
+        "name": "Final Nail Studio"
+    },
+    "type": "tool",
+    "samples": [
+        {
+            "displayName": "Example Presets",
+            "description": "Sample preset JSON files for common project layouts.",
+            "path": "Samples~/Example Presets"
+        }
+    ]
+}

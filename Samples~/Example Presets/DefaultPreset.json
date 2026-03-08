@@ -1,0 +1,35 @@
+{
+    "presetName": "Default",
+    "rules": [
+        {
+            "folderName": "Scripts",
+            "colorHex": "4D99FFFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Art",
+            "colorHex": "FF4D4DFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Prefabs",
+            "colorHex": "33E566FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Scenes",
+            "colorHex": "FF9933FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Resources",
+            "colorHex": "B34DFFFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Plugins",
+            "colorHex": "999999FF",
+            "recursive": true
+        }
+    ]
+}

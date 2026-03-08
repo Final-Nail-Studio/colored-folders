@@ -1,0 +1,65 @@
+{
+    "presetName": "Game Project",
+    "rules": [
+        {
+            "folderName": "Scripts",
+            "colorHex": "4D99FFFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Art",
+            "colorHex": "FF4D4DFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Audio",
+            "colorHex": "FF9933FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Prefabs",
+            "colorHex": "33E566FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Scenes",
+            "colorHex": "B34DFFFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Materials",
+            "colorHex": "FF66B2FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Textures",
+            "colorHex": "33E5B2FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Animations",
+            "colorHex": "E5E533FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Editor",
+            "colorHex": "999999FF",
+            "recursive": false
+        },
+        {
+            "folderName": "Resources",
+            "colorHex": "FF6633FF",
+            "recursive": true
+        },
+        {
+            "folderName": "Shaders",
+            "colorHex": "33CCFFFF",
+            "recursive": true
+        },
+        {
+            "folderName": "Plugins",
+            "colorHex": "808080FF",
+            "recursive": true
+        }
+    ]
+}
