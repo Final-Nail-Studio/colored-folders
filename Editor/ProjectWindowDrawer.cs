@@ -8,10 +8,11 @@ namespace FinalNailStudio.ColoredFolders
     {
         const int k_GradientWidth = 256;
         const float k_ListRowMaxHeight = 20f;
+        const float k_ListModeIconPadding = 3f; // k_ListModeExternalIconPadding / 2
 
         static Texture2D s_GradientTex;
         static Texture2D s_SelectedGradientTex;
-        static GUIStyle s_LabelStyle;
+        static GUIStyle s_TextLabelStyle;
 
         static ProjectWindowDrawer()
         {
@@ -29,7 +30,7 @@ namespace FinalNailStudio.ColoredFolders
 
         static void OnSettingsChanged()
         {
-            s_LabelStyle = null;
+            s_TextLabelStyle = null;
             RebuildTextures();
         }
 
@@ -64,14 +65,11 @@ namespace FinalNailStudio.ColoredFolders
             return tex;
         }
 
-        static void EnsureLabelStyle()
+        // Tree view items land at x = 16 + n*14 (baseIndent 2 + foldout 14 + depth*14).
+        // Flat list items do not follow this pattern.
+        static bool IsTreeView(Rect rect)
         {
-            if (s_LabelStyle != null) return;
-            s_LabelStyle = new GUIStyle(EditorStyles.label)
-            {
-                padding = new RectOffset(0, 0, 0, 0),
-                margin = new RectOffset(0, 0, 0, 0)
-            };
+            return ((int)(rect.x - 16)) % 14 == 0;
         }
 
         static void OnProjectWindowItemGUI(string guid, Rect selectionRect)
@@ -101,42 +99,57 @@ namespace FinalNailStudio.ColoredFolders
             GUI.color = new Color(color.r, color.g, color.b, 1f);
             GUI.DrawTexture(selectionRect, gradTex);
 
-            // Icon tint
+            // Icon and label tinting (list view only)
+            bool isListMode = selectionRect.height <= k_ListRowMaxHeight;
             var icon = AssetDatabase.GetCachedIcon(path);
-            if (icon != null)
+            if (icon != null && isListMode)
             {
-                bool listView = selectionRect.height <= k_ListRowMaxHeight;
-                Rect iconRect;
+                bool isTree = IsTreeView(selectionRect);
+                float iconPad = isTree ? 0f : k_ListModeIconPadding;
 
-                if (listView)
+                // Colored label text — covers Unity's original text with an
+                // opaque background, redraws the gradient with correct UVs,
+                // then draws colored text without an icon (no duplicate).
+                if (settings.ColorFolderLabels)
                 {
-                    float h = selectionRect.height;
-                    iconRect = new Rect(selectionRect.x, selectionRect.y, h, h);
+                    Rect textRect = selectionRect;
+                    textRect.xMin = selectionRect.x + selectionRect.height + iconPad;
+
+                    // Cover Unity's original text with the appropriate bg color
+                    Color bg;
+                    if (isSelected)
+                        bg = EditorGUIUtility.isProSkin
+                            ? new Color(0.19f, 0.39f, 0.57f, 1f)
+                            : new Color(0.24f, 0.48f, 0.90f, 1f);
+                    else
+                        bg = EditorGUIUtility.isProSkin
+                            ? new Color(0.22f, 0.22f, 0.22f, 1f)
+                            : new Color(0.76f, 0.76f, 0.76f, 1f);
+
+                    EditorGUI.DrawRect(textRect, bg);
+
+                    // Re-draw gradient with UV coords that match the row-wide gradient
+                    float uvStart = (textRect.xMin - selectionRect.xMin) / selectionRect.width;
+                    GUI.color = new Color(color.r, color.g, color.b, 1f);
+                    GUI.DrawTextureWithTexCoords(textRect, gradTex,
+                        new Rect(uvStart, 0f, 1f - uvStart, 1f));
+
+                    // Draw colored text (no icon in content)
+                    if (s_TextLabelStyle == null)
+                        s_TextLabelStyle = new GUIStyle(EditorStyles.label);
+                    s_TextLabelStyle.normal.textColor = new Color(color.r, color.g, color.b, 1f);
+                    GUI.color = Color.white;
+                    GUI.Label(textRect, PathUtility.GetFolderName(path), s_TextLabelStyle);
                 }
-                else
-                {
-                    // Grid/icon view: icon centered in upper portion, label at bottom
-                    float labelHeight = 16f;
-                    float iconArea = selectionRect.height - labelHeight;
-                    float iconSize = Mathf.Min(selectionRect.width, iconArea);
-                    float iconX = selectionRect.x + (selectionRect.width - iconSize) * 0.5f;
-                    iconRect = new Rect(iconX, selectionRect.y, iconSize, iconSize);
-                }
+
+                // Tinted icon overlay — drawn last on top of everything.
+                // Make the rect square (width = height) to match Unity's 16x16 icon area.
+                Rect iconRect = selectionRect;
+                iconRect.width = iconRect.height;
+                iconRect.x += iconPad;
 
                 GUI.color = new Color(color.r, color.g, color.b, rightAlpha);
                 GUI.DrawTexture(iconRect, icon, ScaleMode.ScaleToFit);
-            }
-
-            // Label text coloring
-            if (settings.ColorFolderLabels && selectionRect.height <= k_ListRowMaxHeight)
-            {
-                EnsureLabelStyle();
-                float h = selectionRect.height;
-                var labelRect = new Rect(selectionRect.x + h + 2f, selectionRect.y,
-                    selectionRect.width - h - 2f, h);
-
-                s_LabelStyle.normal.textColor = new Color(color.r, color.g, color.b, 1f);
-                GUI.Label(labelRect, PathUtility.GetFolderName(path), s_LabelStyle);
             }
 
             GUI.color = prev;
