@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0] - 2026-03-08
+
+### Added
+- Configurable horizontal alpha gradient (left/right alpha sliders in settings)
+- Selected folder alpha multiplier setting
+- Optional colored folder label text
+- Tinted folder icons at configurable opacity
+
+### Fixed
+- Blurry text rendering when Color Folder Labels is enabled
+- Duplicate white folder icon appearing in flat list view
+- Icon and text alignment in both tree and flat list views
+
 ## [1.0.0] - 2024-01-01
 
 ### Added
